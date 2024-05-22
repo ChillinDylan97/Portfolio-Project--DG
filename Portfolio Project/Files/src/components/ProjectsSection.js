@@ -14,7 +14,7 @@ const projects = [
     title: "Restaraunt Webpage",
     description:
       "A webpage for a fictional website where users can reserve a table for a specific time and date.",
-    getImageSrc: () => require("../images/photo2.jpg"),
+    getImageSrc: () => require("../images/little_lemon_pic.png"),
   },
   {
     title: "Blog Website",
