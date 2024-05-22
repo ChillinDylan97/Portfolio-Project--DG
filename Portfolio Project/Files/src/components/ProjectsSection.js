@@ -5,28 +5,28 @@ import Card from "./Card";
 
 const projects = [
   {
-    title: "React Space",
+    title: "Portfolio Webpage",
     description:
-      "Handy tool belt to create amazing AR components in a React app, with redux integration via middleware️",
-    getImageSrc: () => require("../images/photo1.jpg"),
+      "A sectioned, scrollable website sections advertising who I am, what I do, and how to contact me. You're already here.",
+    getImageSrc: () => require("../images/you_are_here.jpg"),
   },
   {
-    title: "React Infinite Scroll",
+    title: "Restaraunt Webpage",
     description:
-      "A scrollable bottom sheet with virtualisation support, native animations at 60 FPS and fully implemented in JS land 🔥️",
+      "A webpage for a fictional website where users can reserve a table for a specific time and date.",
     getImageSrc: () => require("../images/photo2.jpg"),
   },
   {
-    title: "Photo Gallery",
+    title: "Blog Website",
     description:
-      "A One-stop shop for photographers to share and monetize their photos, allowing them to have a second source of income",
-    getImageSrc: () => require("../images/photo3.jpg"),
+      "A website that allows a user to create, edit, and delete blog posts. Each post contains a comment section that other users can leave comments on. There is also a functioning contact page that sends an email to the owner of the blog. This project is still a WIP.",
+    getImageSrc: () => require("../images/blog_pic.png"),
   },
   {
-    title: "Event planner",
+    title: "Tetris-like Game",
     description:
-      "A mobile application for leisure seekers to discover unique events and activities in their city with a few taps",
-    getImageSrc: () => require("../images/photo4.jpg"),
+      "A game that functions similarly to Tetris made entirely in React. I made this for the sole purpose of further educating myself.",
+    getImageSrc: () => require("../images/tetris_game_pic.png"),
   },
 ];
 
