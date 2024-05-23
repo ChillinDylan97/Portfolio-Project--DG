@@ -1,5 +1,5 @@
-import React, {useEffect} from "react";
-import { useFormik, validateYupSchema } from "formik";
+import React, { useEffect, useRef } from "react";
+import { useFormik } from "formik";
 import {
   Box,
   Button,
@@ -15,53 +15,49 @@ import {
 import * as Yup from 'yup';
 import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
-import {useAlertContext} from "../context/alertContext";
+import { useAlertContext } from "../context/alertContext";
 import emailjs from '@emailjs/browser';
 
-const sendEmail = (e) => {
-  e.preventDefault();
-  emailjs.sendForm('service_eywea47', 'template_8u16o7h', form.current,
-  '3Nm37d0HDDslTmzjt')
-    .then((result) => {
-        console.log(result.text);
-    }, (error) => {
-        console.log(error.text);
-    });
-  };
-
 const ContactMeSection = () => {
-  
-  const {isLoading, response, submit} = useSubmit();
+  const { isLoading, response, submit } = useSubmit();
   const { onOpen } = useAlertContext();
+  const formRef = useRef();
 
   const formik = useFormik({
     initialValues: {
       firstName: '',
       email: '',
       type: 'hireMe',
-      comment:''
-
-
-    },
-    onSubmit: (values) => {
-      submit('https://placeholder.com/contactme', values)
+      comment: ''
     },
     validationSchema: Yup.object({
       firstName: Yup.string().required('Required'),
       email: Yup.string().email("Invalid email address").required('Required'),
       comment: Yup.string().min(25, "Must be at least 25 characters").required('Required')
-
     }),
+    onSubmit: (values, { resetForm }) => {
+      sendEmail();
+      resetForm();
+    },
   });
 
   useEffect(() => {
-  if(response){
-    onOpen(response.type, response.message);
-    if(response.type === 'success') {
-      formik.resetForm()
+    if (response) {
+      onOpen(response.type, response.message);
+      if (response.type === 'success') {
+        formik.resetForm();
+      }
     }
-  }
-}, [response])
+  }, [response, onOpen, formik]);
+
+  const sendEmail = () => {
+    emailjs.sendForm('service_eywea47', 'template_8u16o7h', formRef.current, '3Nm37d0HDDslTmzjt')
+      .then((result) => {
+        console.log(result.text);
+      }, (error) => {
+        console.log(error.text);
+      });
+  };
 
   return (
     <FullScreenSection
@@ -75,7 +71,7 @@ const ContactMeSection = () => {
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">
-          <form onSubmit={sendEmail}>
+          <form ref={formRef} onSubmit={formik.handleSubmit}>
             <VStack spacing={4}>
               <FormControl isInvalid={!!formik.errors.firstName && formik.touched.firstName}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
@@ -96,15 +92,11 @@ const ContactMeSection = () => {
                 />
                 <FormErrorMessage>{formik.errors.email}</FormErrorMessage>
               </FormControl>
-              <FormControl isInvalid={!!formik.errors.comment && formik.touched.comment}>
+              <FormControl>
                 <FormLabel htmlFor="type">Type of enquiry</FormLabel>
-                <Select id="type" name="type">
+                <Select id="type" name="type" {...formik.getFieldProps('type')}>
                   <option value="hireMe">Freelance project proposal</option>
-                  <option value="openSource"
-                  {...formik.getFieldProps('type')}
-                  >
-                    Open source consultancy session
-                  </option>
+                  <option value="openSource">Open source consultancy session</option>
                   <option value="other">Other</option>
                 </Select>
               </FormControl>
