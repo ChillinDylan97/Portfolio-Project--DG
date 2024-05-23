@@ -9,24 +9,28 @@ const projects = [
     description:
       "A sectioned, scrollable website sections advertising who I am, what I do, and how to contact me. You're already here.",
     getImageSrc: () => require("../images/you_are_here.jpg"),
+    url: "https://github.com/ChillinDylan97/Portfolio-Project--DG",
   },
   {
     title: "Restaraunt Webpage",
     description:
       "A webpage for a fictional website where users can reserve a table for a specific time and date.",
     getImageSrc: () => require("../images/little_lemon_pic.png"),
+    url: "https://github.com/ChillinDylan97/little-lemon-web-app",
   },
   {
     title: "Blog Website",
     description:
       "A website that allows a user to create, edit, and delete blog posts. Each post contains a comment section that other users can leave comments on. There is also a functioning contact page that sends an email to the owner of the blog. This project is still a WIP.",
     getImageSrc: () => require("../images/blog_pic.png"),
+    url: "https://github.com/ChillinDylan97/blog-website",
   },
   {
     title: "Tetris-like Game",
     description:
       "A game that functions similarly to Tetris made entirely in React. I made this for the sole purpose of further educating myself.",
     getImageSrc: () => require("../images/tetris_game_pic.png"),
+    url: "https://github.com/ChillinDylan97/tetris-like-game",
   },
 ];
 
@@ -53,6 +57,7 @@ const ProjectsSection = () => {
             title={project.title}
             description={project.description}
             imageSrc={project.getImageSrc()}
+            url={project.url}
           />
         ))}
       </Box>

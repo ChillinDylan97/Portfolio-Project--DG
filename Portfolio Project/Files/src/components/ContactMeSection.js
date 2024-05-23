@@ -16,8 +16,21 @@ import * as Yup from 'yup';
 import FullScreenSection from "./FullScreenSection";
 import useSubmit from "../hooks/useSubmit";
 import {useAlertContext} from "../context/alertContext";
+import emailjs from '@emailjs/browser';
+
+const sendEmail = (e) => {
+  e.preventDefault();
+  emailjs.sendForm('service_eywea47', 'template_8u16o7h', form.current,
+  '3Nm37d0HDDslTmzjt')
+    .then((result) => {
+        console.log(result.text);
+    }, (error) => {
+        console.log(error.text);
+    });
+  };
 
 const ContactMeSection = () => {
+  
   const {isLoading, response, submit} = useSubmit();
   const { onOpen } = useAlertContext();
 
@@ -62,7 +75,7 @@ const ContactMeSection = () => {
           Contact me
         </Heading>
         <Box p={6} rounded="md" w="100%">
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={sendEmail}>
             <VStack spacing={4}>
               <FormControl isInvalid={!!formik.errors.firstName && formik.touched.firstName}>
                 <FormLabel htmlFor="firstName">Name</FormLabel>
