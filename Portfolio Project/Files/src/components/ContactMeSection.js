@@ -51,7 +51,8 @@ const ContactMeSection = () => {
   }, [response, onOpen, formik]);
 
   const sendEmail = () => {
-    emailjs.sendForm('service_eywea47', 'template_8u16o7h', formRef.current, '3Nm37d0HDDslTmzjt')
+    const formData = formik.values;
+    emailjs.sendForm('service_eywea47', 'template_umxwb6q', formRef.current, '3Nm37d0HDDslTmzjt')
       .then((result) => {
         console.log(result.text);
       }, (error) => {
